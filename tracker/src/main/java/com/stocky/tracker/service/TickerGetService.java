@@ -1,14 +1,8 @@
 package com.stocky.tracker.service;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -16,8 +10,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.stocky.tracker.configuration.ApiConfiguration;
 import com.stocky.tracker.entity.TickerInformation;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class TickerGetService {
+
+    private final ApiConfiguration apiConfiguration;
 
     public TickerInformation getTickerInfos(String ticker) {
         URI uri = UriComponentsBuilder.newInstance()
@@ -25,7 +24,7 @@ public class TickerGetService {
                 .host("api.polygon.io/v3/reference")
                 .path("/tickers/{ticker}")
                 .queryParam("apiKey", "{apiKey}")
-                .buildAndExpand(ticker, ApiConfiguration.API_KEY)
+                .buildAndExpand(ticker, apiConfiguration.getApiKey())
                 .toUri();
 
         RestClient restClient = RestClient.create();
