@@ -1,9 +1,14 @@
 import { DividendInformation } from "../interfaces/DividendInformationInterface";
 import { ApiService } from "./ApiService";
 
-const getDividendInformation = (ticker: string): Promise<DividendInformation> => {
+const getDividendInformation = (ticker: string, startDate?: string): Promise<DividendInformation> => {
     const url = "http://localhost:8080/dividend/information";
-    const uri = `${url}?ticker=${ticker}`
+    let uri = `${url}?ticker=${ticker}`
+
+    if (startDate) {
+        uri += `&startDate=${startDate}`
+    }
+
     const requestData = {
         method: 'GET',
         headers: {

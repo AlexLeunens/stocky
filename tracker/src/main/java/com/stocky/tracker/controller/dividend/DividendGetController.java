@@ -19,8 +19,8 @@ public class DividendGetController {
     private final DividendGetService dividendGetService;
 
     @GetMapping("/information")
-    public ResponseEntity<DividendInformation> getTickerInfos(@RequestParam String ticker) {
-        DividendInformation result = dividendGetService.getDividendInfos(ticker);
+    public ResponseEntity<DividendInformation> getTickerInfos(@RequestParam String ticker, @RequestParam String startDate) {
+        DividendInformation result = dividendGetService.getDividendInfos(ticker, startDate);
         return ResponseEntity.ok(result);
     }
 }

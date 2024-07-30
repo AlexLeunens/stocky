@@ -1,7 +1,7 @@
 import React from "react";
-import Button from "../atoms/Button";
-import { StockInformationInterface } from "../interfaces/StockInformationInterface";
-import { TickerGetInformationService } from "../service/TickerGetInformationService";
+import Button from "../../atoms/button/Button";
+import { StockInformationInterface } from "../../interfaces/StockInformationInterface";
+import { TickerGetInformationService } from "../../service/TickerGetInformationService";
 
 type TickerInformationDisplayProps = {
     ticker: string,
