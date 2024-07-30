@@ -17,4 +17,5 @@ jobs:
           java --version
           native-image --version
       - name: Example step using Maven plugin  # https://graalvm.github.io/native-build-tools/latest/maven-plugin.html
+        working-directory: ./tracker
         run: mvn -Pnative package
