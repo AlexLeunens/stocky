@@ -6,6 +6,7 @@ import { DividendGetService } from "../../service/DividendGetService";
 import CalendarHeader from "../../molecules/calendarHeader/CalendarHeader";
 import { DateUtils } from "../../utils/DateUtils";
 import CalendarTotal from "../../molecules/calendarTotal/CalendarTotal";
+import ProgressBar, { ProgressBarRef } from "../../atoms/progressBar/ProgressBar";
 
 type DividendCalendarProps = {
     tickers: string[],
@@ -15,6 +16,7 @@ const DividendCalendar: React.FC<DividendCalendarProps> = ({
     tickers
 }) => {
     const [dividendCalendars, setDividendCalendars] = React.useState<Calendar[]>([]);
+    const childRef = React.useRef<ProgressBarRef>(null);
 
     const onEvent = (eventMessage: string) => {
         const dividendCalendar: Calendar = JSON.parse(eventMessage)
@@ -24,6 +26,8 @@ const DividendCalendar: React.FC<DividendCalendarProps> = ({
     const onButtonClick = () => {
         setDividendCalendars([])
         const startOfYear = new Date(new Date().getFullYear(), 0, 1);
+
+        childRef?.current?.runProgress(tickers.length - 1);
         DividendGetService.getDividendCalendars(tickers, startOfYear.toISOString(), onEvent);
     }
 
@@ -43,6 +47,7 @@ const DividendCalendar: React.FC<DividendCalendarProps> = ({
         <div>
             <Button onClick={() => onButtonClick()} text="Get information" />
 
+            <ProgressBar ref={childRef} />
             <div>
                 <CalendarHeader />
                 {dividendCalendars.map(dividendCalendar => <CalendarRow dividendCalendar={dividendCalendar} />)}
