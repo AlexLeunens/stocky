@@ -1,7 +1,7 @@
 import React from "react";
 import TextInput from "../atoms/textInput/TextInput";
-import DividendInformationDisplay from "../organisms/dividendInformationDisplay/DividendInformationDisplay";
-import TickerInformationDisplay from "../organisms/tickerInformationDisplay/TickerInformationDisplay";
+import DividendDetails from "../organisms/dividendDetails/DividendDetails";
+import TickerDetails from "../organisms/tickerDetails/TickerDetails";
 import DividendCalendar from "../organisms/dividendCalendar/DividendCalendar";
 
 type HomePageProps = {
@@ -15,8 +15,8 @@ const HomePage: React.FC<HomePageProps> = () => {
         <div>
             <TextInput onChange={(value) => setTicker(value)} />
 
-            <TickerInformationDisplay ticker={ticker} />
-            <DividendInformationDisplay ticker={ticker} />
+            <TickerDetails ticker={ticker} />
+            <DividendDetails ticker={ticker} />
             <DividendCalendar ticker={ticker} />
         </div>
     )

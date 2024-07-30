@@ -5,6 +5,6 @@ import lombok.Getter;
 @Getter
 public class TickerInformation {
     private String request_id;
-    TickerInformationResults results;
+    TickerResult results;
     private String status;
 }

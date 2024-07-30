@@ -22,7 +22,7 @@ public class DividendGetController {
     @GetMapping("/information")
     public ResponseEntity<DividendInformation> getTickerInfos(@RequestParam String ticker,
             @RequestParam String startDate) {
-        DividendInformation result = dividendGetService.getDividendInfos(ticker, startDate);
+        DividendInformation result = dividendGetService.getDividendInformation(ticker, startDate);
         return ResponseEntity.ok(result);
     }
 

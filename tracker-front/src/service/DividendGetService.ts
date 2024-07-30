@@ -1,4 +1,4 @@
-import { DividendInformation } from "../interfaces/DividendInformationInterface";
+import { DividendInformation } from "../interfaces/DividendInformation";
 import { ApiService } from "./ApiService";
 
 const getDividendInformation = (ticker: string, startDate?: string): Promise<DividendInformation> => {
@@ -24,7 +24,7 @@ const getDividendInformation = (ticker: string, startDate?: string): Promise<Div
 };
 
 
-const getDividendCalendar = (tickers: string[], startDate: string, onUpdate: (messageData: any) => void) => {
+const getDividendCalendars = (tickers: string[], startDate: string, onEvent: (eventMessage: string) => void) => {
     const url = "http://localhost:8080/dividend/calendar";
     let uri = `${url}?tickers=${tickers.join(',')}&startDate=${startDate}`
     const eventSource = new EventSource(uri);
@@ -35,7 +35,7 @@ const getDividendCalendar = (tickers: string[], startDate: string, onUpdate: (me
 
     eventSource.addEventListener("sse event - mvc", (event) => {
         const messageData = event.data;
-        onUpdate(messageData)
+        onEvent(messageData)
     });
 
     eventSource.onerror = (e) => {
@@ -46,7 +46,7 @@ const getDividendCalendar = (tickers: string[], startDate: string, onUpdate: (me
 
 
 
-export const DividendGetInformationService = {
+export const DividendGetService = {
     getDividendInformation,
-    getDividendCalendar,
+    getDividendCalendars,
 }

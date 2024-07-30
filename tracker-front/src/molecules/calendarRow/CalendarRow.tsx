@@ -1,24 +1,21 @@
 import React from "react";
 import "./CalendarRowStyle.scss";
 import CalendarCell from "../../atoms/calendarCell/CalendarCell";
+import { Calendar } from "../../interfaces/Calendar";
 
 type CalendarRowProps = {
-    cellValues: string[],
-    cellKey: string,
-    cellHeader?: string,
+    dividendCalendar: Calendar,
 }
 
 const CalendarRow: React.FC<CalendarRowProps> = ({
-    cellValues,
-    cellKey,
-    cellHeader = ""
+    dividendCalendar,
 }) => {
 
     return (
         <div className="calendar-row">
-            <CalendarCell text={cellHeader} key={`${cellKey}-header`} />
-            {cellValues.map((value, index) => (
-                <CalendarCell text={value} key={`${cellKey}-${index}`} />
+            <CalendarCell text={dividendCalendar.ticker} key={`${dividendCalendar.ticker}-header`} />
+            {dividendCalendar.dividends.map((value, index) => (
+                <CalendarCell text={value.cashAmount?.toString()} key={`${dividendCalendar.ticker}-${index}`} />
             ))}
         </div>
     )

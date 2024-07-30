@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class DividendInformation {
-    private DividendInformationResults[] results;
+    private DividendResult[] results;
     private String status;
     private String request_id;
     private String next_url;

@@ -1,20 +1,20 @@
 import React from "react";
 import Button from "../../atoms/button/Button";
-import { DividendInformation } from "../../interfaces/DividendInformationInterface";
-import { DividendGetInformationService } from "../../service/DividendGetInformationService";
+import { DividendInformation } from "../../interfaces/DividendInformation";
+import { DividendGetService } from "../../service/DividendGetService";
 import { DateUtils } from "../../utils/DateUtils";
 
-type DividendInformationDisplayProps = {
+type DividendDetailsProps = {
     ticker: string,
 }
 
-const DividendInformationDisplay: React.FC<DividendInformationDisplayProps> = ({
+const DividendDetails: React.FC<DividendDetailsProps> = ({
     ticker,
 }) => {
     const [infos, setInfos] = React.useState<DividendInformation | null>(null);
 
     const onButtonClick = () => {
-        DividendGetInformationService.getDividendInformation(ticker)
+        DividendGetService.getDividendInformation(ticker)
             .then(infos => setInfos(infos));
     }
 
@@ -37,4 +37,4 @@ const DividendInformationDisplay: React.FC<DividendInformationDisplayProps> = ({
     )
 }
 
-export default DividendInformationDisplay;
+export default DividendDetails;

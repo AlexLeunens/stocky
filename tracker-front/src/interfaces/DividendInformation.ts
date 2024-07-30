@@ -1,11 +1,11 @@
 export interface DividendInformation {
-    results: DividendInformationResult[]
+    results: DividendResult[]
     status: string
     request_id: string
     next_url: string
   }
   
-  export interface DividendInformationResult {
+  export interface DividendResult {
     cash_amount: number
     currency: string
     declaration_date: number[]

@@ -1,10 +1,10 @@
-export interface StockInformationInterface {
+export interface TickerInformation {
     request_id: string
-    results: Results
+    results: TickerResults
     status: string
 }
 
-export interface Results {
+export interface TickerResults {
     ticker: string
     name: string
     market: string
@@ -18,7 +18,7 @@ export interface Results {
     share_class_figi: string
     market_cap: number
     phone_number: string
-    address: Address
+    address: TickerAddress
     description: string
     sic_code: string
     sic_description: string
@@ -26,20 +26,20 @@ export interface Results {
     homepage_url: string
     total_employees: number
     list_date: number[]
-    branding: Branding
+    branding: TickerBranding
     share_class_shares_outstanding: number
     weighted_shares_outstanding: number
     round_lot: number
 }
 
-export interface Address {
+export interface TickerAddress {
     address1: string
     city: string
     state: string
     postal_code: string
 }
 
-export interface Branding {
+export interface TickerBranding {
     logo_url: string
     icon_url: string
 }

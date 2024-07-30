@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import lombok.Getter;
 
 @Getter
-public class DividendInformationResults {
+public class DividendResult {
     private double cash_amount;
     private String currency;
     private String dividend_type;

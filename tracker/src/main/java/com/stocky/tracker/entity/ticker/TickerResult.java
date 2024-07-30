@@ -3,7 +3,7 @@ package com.stocky.tracker.entity.ticker;
 import lombok.Getter;
 
 @Getter
-public class TickerInformationResults {
+public class TickerResult {
     private String ticker;
     private String name;
     private String market;
@@ -17,7 +17,7 @@ public class TickerInformationResults {
     private String share_class_figi;
     private float market_cap;
     private String phone_number;
-    TickerInformationAddress address;
+    TickerAddress address;
     private String description;
     private String sic_code;
     private String sic_description;
@@ -25,7 +25,7 @@ public class TickerInformationResults {
     private String homepage_url;
     private float total_employees;
     private String list_date;
-    TickerInformationBranding branding;
+    TickerBranding branding;
     private float share_class_shares_outstanding;
     private float weighted_shares_outstanding;
     private float round_lot;
