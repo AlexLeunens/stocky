@@ -12,36 +12,38 @@ type DividendCalendarProps = {
 const DividendCalendar: React.FC<DividendCalendarProps> = ({
     ticker
 }) => {
-    const [yearlyDividends, setYearlyDividends] = React.useState<DividendInformation | null>(null);
+    const [stocksDividends, setStocksDividends] = React.useState<string[][]>([]);
 
-    const onButtonClick = () => {
-        const startOfYear = new Date(new Date().getFullYear(), 0, 1);
-
-        DividendGetInformationService.getDividendInformation(ticker, startOfYear.toISOString())
-            .then(infos => setYearlyDividends(infos));
+    const updateData = (messageData: string) => {
+        const parsedDividendInformation: DividendInformation = JSON.parse(messageData)
+        const calendarValues = getCalendarValues(parsedDividendInformation)
+        setStocksDividends(old => [...old, calendarValues])
     }
 
-    const getCalendarValues = (): string[] => {
-        const dividends = yearlyDividends?.results;
+    const onButtonClick = () => {
+        setStocksDividends([])
+        const startOfYear = new Date(new Date().getFullYear(), 0, 1);
+        DividendGetInformationService.getDividendCalendar([ticker], startOfYear.toISOString(), updateData);
+    }
 
+    const getCalendarValues = (dividendInformation: DividendInformation | null): string[] => {
+        const dividends = dividendInformation?.results;
         const calendarValues = Array(12).fill("0");
+
         dividends?.forEach(dividend => {
             const month = DateUtils.parseDate(dividend.pay_date).getMonth();
             const value = dividend.cash_amount;
-            calendarValues[month] = value?.toString();
+            calendarValues[month-1] = value?.toString();
         })
 
         return calendarValues;
     }
 
-    
-
-    
     const getMonthName = (month: number): string => {
         const date = new Date(2009, month, 10);
         return date.toLocaleString('default', { month: 'long' });
     }
-    
+
     const getMonths = (): string[] => {
         const months = Array.from(Array(12), (e, i) => i);
         return months.map(month => getMonthName(month));
@@ -51,10 +53,11 @@ const DividendCalendar: React.FC<DividendCalendarProps> = ({
         <div>
             <Button onClick={() => onButtonClick()} text="Get information" />
 
-                <div>
-                    <CalendarRow cellValues={getMonths()} cellKey="header" />
-                    <CalendarRow cellValues={getCalendarValues()} cellKey={ticker} />
-                </div>
+            <div>
+                <CalendarRow cellValues={getMonths()} cellKey="header" />
+                {stocksDividends.map(stockDividends =>  <CalendarRow cellValues={stockDividends} cellKey={ticker} cellHeader="O" />)}
+            </div>
+
         </div>
     )
 }

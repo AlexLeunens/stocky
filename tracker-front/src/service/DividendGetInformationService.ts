@@ -24,6 +24,29 @@ const getDividendInformation = (ticker: string, startDate?: string): Promise<Div
 };
 
 
+const getDividendCalendar = (tickers: string[], startDate: string, onUpdate: (messageData: any) => void) => {
+    const url = "http://localhost:8080/dividend/calendar";
+    let uri = `${url}?tickers=${tickers.join(',')}&startDate=${startDate}`
+    const eventSource = new EventSource(uri);
+
+    eventSource.onopen = (event) => {
+        console.log("connection opened");
+    }
+
+    eventSource.addEventListener("sse event - mvc", (event) => {
+        const messageData = event.data;
+        onUpdate(messageData)
+    });
+
+    eventSource.onerror = (e) => {
+        console.log(e)
+        eventSource?.close();
+    }
+}
+
+
+
 export const DividendGetInformationService = {
     getDividendInformation,
+    getDividendCalendar,
 }
