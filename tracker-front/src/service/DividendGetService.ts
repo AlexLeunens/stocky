@@ -1,27 +1,25 @@
-import { DividendInformation } from "../interfaces/DividendInformation";
-import { ApiService } from "./ApiService";
 
-const getDividendInformation = (ticker: string, startDate?: string): Promise<DividendInformation> => {
-    const url = "http://localhost:8080/dividend/information";
-    let uri = `${url}?ticker=${ticker}`
+// const getDividendInformation = (ticker: string, startDate?: string): Promise<DividendInformation> => {
+//     const url = "http://localhost:8080/dividend/information";
+//     let uri = `${url}?ticker=${ticker}`
 
-    if (startDate) {
-        uri += `&startDate=${startDate}`
-    }
+//     if (startDate) {
+//         uri += `&startDate=${startDate}`
+//     }
 
-    const requestData = {
-        method: 'GET',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-        }
-    }
+//     const requestData = {
+//         method: 'GET',
+//         headers: {
+//             Accept: 'application/json',
+//             'Content-Type': 'application/json',
+//             'Access-Control-Allow-Origin': '*',
+//         }
+//     }
 
-    return ApiService.callApi(uri, requestData)
-        .then(json => json)
-        .catch(error => console.log(error));
-};
+//     return ApiService.callApi(uri, requestData)
+//         .then(json => json)
+//         .catch(error => console.log(error));
+// };
 
 
 const getDividendCalendars = (tickers: string[], startDate: string, onEvent: (eventMessage: string) => void) => {
@@ -47,6 +45,5 @@ const getDividendCalendars = (tickers: string[], startDate: string, onEvent: (ev
 
 
 export const DividendGetService = {
-    getDividendInformation,
     getDividendCalendars,
 }
