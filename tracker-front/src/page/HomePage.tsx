@@ -3,21 +3,20 @@ import TextInput from "../atoms/textInput/TextInput";
 import DividendDetails from "../organisms/dividendDetails/DividendDetails";
 import TickerDetails from "../organisms/tickerDetails/TickerDetails";
 import DividendCalendar from "../organisms/dividendCalendar/DividendCalendar";
+import TickerInput from "../molecules/tickerInput/TickerInput";
 
 type HomePageProps = {
 
 }
 
 const HomePage: React.FC<HomePageProps> = () => {
-    const [ticker, setTicker] = React.useState<string>("");
+    const [tickers, setTickers] = React.useState<string[]>([]);
 
     return (
         <div>
-            <TextInput onChange={(value) => setTicker(value)} />
+            <TickerInput tickers={tickers} setTickers={setTickers} />
 
-            <TickerDetails ticker={ticker} />
-            <DividendDetails ticker={ticker} />
-            <DividendCalendar ticker={ticker} />
+            <DividendCalendar tickers={tickers} />
         </div>
     )
 }

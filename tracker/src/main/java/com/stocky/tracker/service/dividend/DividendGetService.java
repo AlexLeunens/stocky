@@ -79,7 +79,7 @@ public class DividendGetService {
                     .name("sse event - mvc"); // TODO: rename event (make sure the front ends matches the name)
 
             sseEmitter.send(event);
-            sleep(1000, sseEmitter); // API limit of 5 requests per minute, so delay of 12500
+            sleep(12500, sseEmitter); // API limit of 5 requests per minute, so delay of 12500
         } catch (IOException e) {
             e.printStackTrace();
             sseEmitter.completeWithError(e);

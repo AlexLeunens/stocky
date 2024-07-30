@@ -6,11 +6,11 @@ import { DividendGetService } from "../../service/DividendGetService";
 import CalendarHeader from "../../molecules/calendarHeader/CalendarHeader";
 
 type DividendCalendarProps = {
-    ticker: string,
+    tickers: string[],
 }
 
 const DividendCalendar: React.FC<DividendCalendarProps> = ({
-    ticker
+    tickers
 }) => {
     const [dividendCalendars, setDividendCalendars] = React.useState<Calendar[]>([]);
 
@@ -22,7 +22,7 @@ const DividendCalendar: React.FC<DividendCalendarProps> = ({
     const onButtonClick = () => {
         setDividendCalendars([])
         const startOfYear = new Date(new Date().getFullYear(), 0, 1);
-        DividendGetService.getDividendCalendars([ticker], startOfYear.toISOString(), onEvent);
+        DividendGetService.getDividendCalendars(tickers, startOfYear.toISOString(), onEvent);
     }
 
     return (

@@ -1,0 +1,18 @@
+.ticker-input {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.ticker-list {
+    .ticker-list-item {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+}
+
+.remove-ticker-button {
+    color: red;
+    cursor: pointer;
+}
