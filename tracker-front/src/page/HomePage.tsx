@@ -1,7 +1,4 @@
 import React from "react";
-import TextInput from "../atoms/textInput/TextInput";
-import DividendDetails from "../organisms/dividendDetails/DividendDetails";
-import TickerDetails from "../organisms/tickerDetails/TickerDetails";
 import DividendCalendar from "../organisms/dividendCalendar/DividendCalendar";
 import TickerInput from "../molecules/tickerInput/TickerInput";
 
