@@ -6,12 +6,12 @@ import lombok.Getter;
 
 @Getter
 public class DividendInformationResults {
-    private double cashAmount;
+    private double cash_amount;
     private String currency;
-    private String dividendType;
-    private LocalDate exDividendDate;
+    private String dividend_type;
+    private LocalDate ex_dividend_date;
     private long frequency;
-    private LocalDate payDate;
-    private LocalDate recordDate;
+    private LocalDate pay_date;
+    private LocalDate record_date;
     private String ticker;
 }

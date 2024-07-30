@@ -12,7 +12,7 @@ const Button: React.FC<ButtonProps> = ({
     return (
         <div>
             <button onClick={onClick}>
-                {text}a
+                {text}
             </button>
         </div>
     )

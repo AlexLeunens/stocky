@@ -1,17 +1,16 @@
 import React from "react";
 import Button from "../atoms/Button";
-import TextInput from "../atoms/TextInput";
-import { TickerGetInformationService } from "../service/TickerGetInformationService";
 import { StockInformationInterface } from "../interfaces/StockInformationInterface";
+import { TickerGetInformationService } from "../service/TickerGetInformationService";
 
-type TickerInformationProps = {
-
+type TickerInformationDisplayProps = {
+    ticker: string,
 }
 
-const TickerInformation: React.FC<TickerInformationProps> = () => {
-    const [ticker, setTicker] = React.useState<string>("");
+const TickerInformationDisplay: React.FC<TickerInformationDisplayProps> = ({
+    ticker
+}) => {
     const [infos, setInfos] = React.useState<StockInformationInterface | null>(null);
-
 
     const onButtonClick = () => {
         TickerGetInformationService.getTickerInformation(ticker)
@@ -20,8 +19,7 @@ const TickerInformation: React.FC<TickerInformationProps> = () => {
 
     return (
         <div>
-            <TextInput onChange={(value) => setTicker(value)} />
-            <Button onClick={() => onButtonClick()} text="Get informations"/>
+            <Button onClick={() => onButtonClick()} text="Get informations" />
 
             <div>
                 {infos?.results.name}
@@ -33,4 +31,4 @@ const TickerInformation: React.FC<TickerInformationProps> = () => {
     )
 }
 
-export default TickerInformation;
+export default TickerInformationDisplay;

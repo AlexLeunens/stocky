@@ -1,13 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
-import TickerInformation from './organisms/TickerInformation';
+import HomePage from './page/HomePage';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <TickerInformation />
+        <HomePage />
       </header>
     </div>
   );

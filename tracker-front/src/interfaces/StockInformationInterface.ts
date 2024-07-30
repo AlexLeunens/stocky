@@ -25,7 +25,7 @@ export interface Results {
     ticker_root: string
     homepage_url: string
     total_employees: number
-    list_date: string
+    list_date: number[]
     branding: Branding
     share_class_shares_outstanding: number
     weighted_shares_outstanding: number

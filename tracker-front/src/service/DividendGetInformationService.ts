@@ -1,8 +1,8 @@
-import { StockInformationInterface } from "../interfaces/StockInformationInterface";
+import { DividendInformation } from "../interfaces/DividendInformationInterface";
 import { ApiService } from "./ApiService";
 
-const getTickerInformation = (ticker: string): Promise<StockInformationInterface> => {
-    const url = "http://localhost:8080/ticker/information";
+const getDividendInformation = (ticker: string): Promise<DividendInformation> => {
+    const url = "http://localhost:8080/dividend/information";
     const uri = `${url}?ticker=${ticker}`
     const requestData = {
         method: 'GET',
@@ -19,6 +19,6 @@ const getTickerInformation = (ticker: string): Promise<StockInformationInterface
 };
 
 
-export const TickerGetInformationService = {
-    getTickerInformation,
+export const DividendGetInformationService = {
+    getDividendInformation,
 }
