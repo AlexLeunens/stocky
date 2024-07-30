@@ -4,6 +4,8 @@ import { Calendar } from "../../interfaces/Calendar";
 import CalendarRow from "../../molecules/calendarRow/CalendarRow";
 import { DividendGetService } from "../../service/DividendGetService";
 import CalendarHeader from "../../molecules/calendarHeader/CalendarHeader";
+import { DateUtils } from "../../utils/DateUtils";
+import CalendarTotal from "../../molecules/calendarTotal/CalendarTotal";
 
 type DividendCalendarProps = {
     tickers: string[],
@@ -25,6 +27,18 @@ const DividendCalendar: React.FC<DividendCalendarProps> = ({
         DividendGetService.getDividendCalendars(tickers, startOfYear.toISOString(), onEvent);
     }
 
+    const getCalendarTotal = (): number[] => {
+        const monthsTotal = Array.from(Array(12), () => 0);
+        dividendCalendars.flatMap(calendar => calendar.dividends)
+            .forEach(dividend => {
+                const date = DateUtils.parseDate(dividend.payDate);
+                const monthIndex = date.getMonth() - 1;
+
+                monthsTotal[monthIndex] = monthsTotal[monthIndex] + dividend.cashAmount;
+            })
+        return monthsTotal;
+    }
+
     return (
         <div>
             <Button onClick={() => onButtonClick()} text="Get information" />
@@ -32,6 +46,7 @@ const DividendCalendar: React.FC<DividendCalendarProps> = ({
             <div>
                 <CalendarHeader />
                 {dividendCalendars.map(dividendCalendar => <CalendarRow dividendCalendar={dividendCalendar} />)}
+                <CalendarTotal monthsTotal={getCalendarTotal()} />
             </div>
 
         </div>

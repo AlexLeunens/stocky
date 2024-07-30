@@ -18,10 +18,10 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = () => {
     }
 
     return (
-        <div className="calendar-row">
+        <div className="calendar-header">
             <CalendarCell text={""} />
             {getMonths().map((value, index) => (
-                <CalendarCell text={value} key={`${value}-${index}`} />
+                <CalendarCell text={value} key={`header-${index}`} />
             ))}
         </div>
     )

@@ -15,7 +15,7 @@ const CalendarRow: React.FC<CalendarRowProps> = ({
         <div className="calendar-row">
             <CalendarCell text={dividendCalendar.ticker} key={`${dividendCalendar.ticker}-header`} />
             {dividendCalendar.dividends.map((value, index) => (
-                <CalendarCell text={value.cashAmount?.toString()} key={`${dividendCalendar.ticker}-${index}`} />
+                <CalendarCell text={value.cashAmount?.toFixed(3)} key={`${dividendCalendar.ticker}-${index}`} />
             ))}
         </div>
     )
