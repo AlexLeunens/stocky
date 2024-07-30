@@ -1,4 +1,4 @@
-package com.stocky.tracker.entity;
+package com.stocky.tracker.entity.ticker;
 
 import lombok.Getter;
 
