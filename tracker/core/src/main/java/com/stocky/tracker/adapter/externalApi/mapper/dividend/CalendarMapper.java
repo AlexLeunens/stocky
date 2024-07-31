@@ -6,14 +6,11 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import org.springframework.stereotype.Component;
-
 import com.stocky.tracker.adapter.externalApi.dto.dividend.DividendInformation;
 import com.stocky.tracker.adapter.externalApi.dto.dividend.DividendResult;
 import com.stocky.tracker.entity.calendar.Calendar;
 import com.stocky.tracker.entity.calendar.CalendarDividend;
 
-@Component
 public class CalendarMapper {
 
         private CalendarDividend createEmptyDividend(int month) {

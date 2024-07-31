@@ -19,7 +19,8 @@ public class DividendGetController {
 
     @GetMapping("/calendar")
     public SseEmitter streamStocksDividends(@RequestParam String[] tickers, @RequestParam String startDate) {
-        return controller.streamStocksDividends(tickers, startDate);
+        // TODO: interface until i make an abstract substitute
+        return (SseEmitter) controller.streamStocksDividends(tickers, startDate);
     }
 
 }

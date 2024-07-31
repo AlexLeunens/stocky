@@ -1,7 +1,5 @@
 package com.stocky.tracker.adapter.controller;
 
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-
 import com.stocky.tracker.usecase.GetDividends;
 
 public class DividendController {
@@ -12,7 +10,8 @@ public class DividendController {
         this.getDividends = getDividends;
     }
 
-    public SseEmitter streamStocksDividends(String[] tickers, String startDate) {
+    // TODO: temp Object instead of SSEEmitter abstraction
+    public Object streamStocksDividends(String[] tickers, String startDate) {
         return getDividends.fetchAndReturnDividends(tickers, startDate);
     };
 

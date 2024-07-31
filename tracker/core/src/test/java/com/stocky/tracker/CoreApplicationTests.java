@@ -1,8 +1,8 @@
-package com.spring.spring;
+package com.stocky.tracker;
 
 import org.junit.jupiter.api.Test;
 
-class ApplicationTests {
+class CoreApplicationTests {
 
 	@Test
 	void contextLoads() {

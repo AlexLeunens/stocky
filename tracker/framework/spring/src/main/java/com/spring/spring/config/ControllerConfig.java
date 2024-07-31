@@ -4,8 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.stocky.tracker.adapter.controller.DividendController;
+import com.stocky.tracker.adapter.externalApi.SseManager;
 import com.stocky.tracker.usecase.GetDividends;
-import com.stocky.tracker.usecase.port.DividendApi;
 
 @Configuration
 public class ControllerConfig {
@@ -14,8 +14,8 @@ public class ControllerConfig {
     // TODO: find a better way to register beans?
 
     @Bean
-    public DividendController dividendController(DividendApi dividendApi) {
-        GetDividends getDividends = new GetDividends(dividendApi);
+    public DividendController dividendController(SseManager sseManager) {
+        GetDividends getDividends = new GetDividends(sseManager);
         return new DividendController(getDividends);
     }
 
