@@ -55,8 +55,6 @@
  
 	</dependencies>
 
-
-
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
@@ -126,6 +124,7 @@
 			<!-- TODO: this might not work? -->
 			<modules>
 				<module>framework/spring</module>
+				<module>core</module>
 			</modules>
 			<build>
 				<plugins>
