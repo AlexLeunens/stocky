@@ -10,6 +10,27 @@
             "request": "launch",
             "mainClass": "com.stocky.tracker.TrackerApplication",
             "projectName": "tracker"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-Application<spring>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.spring.spring.Application",
+            "projectName": "spring",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=52165 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=spring"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-TrackerApplication<core>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.stocky.tracker.TrackerApplication",
+            "projectName": "core",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
