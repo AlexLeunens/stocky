@@ -9,7 +9,8 @@
             "name": "TrackerApplication",
             "request": "launch",
             "mainClass": "com.stocky.tracker.TrackerApplication",
-            "projectName": "tracker"
+            "projectName": "tracker",
+            "vmArgs": "-Dspring.profiles.active=dev",
         }
     ]
 }

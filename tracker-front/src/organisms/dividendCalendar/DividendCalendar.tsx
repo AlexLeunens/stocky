@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Button from "../../atoms/button/Button";
-import { Calendar } from "../../interfaces/Calendar";
-import CalendarRow from "../../molecules/calendarRow/CalendarRow";
-import { DividendGetService } from "../../service/DividendGetService";
-import CalendarHeader from "../../molecules/calendarHeader/CalendarHeader";
-import { DateUtils } from "../../utils/DateUtils";
-import CalendarTotal from "../../molecules/calendarTotal/CalendarTotal";
 import ProgressBar, { ProgressBarRef } from "../../atoms/progressBar/ProgressBar";
+import { Stock } from "../../interfaces/Stock";
+import CalendarHeader from "../../molecules/calendarHeader/CalendarHeader";
+import CalendarRow from "../../molecules/calendarRow/CalendarRow";
+import CalendarTotal from "../../molecules/calendarTotal/CalendarTotal";
+import { DividendGetService } from "../../service/DividendGetService";
 
 type DividendCalendarProps = {
     tickers: string[],
@@ -15,11 +14,11 @@ type DividendCalendarProps = {
 const DividendCalendar: React.FC<DividendCalendarProps> = ({
     tickers
 }) => {
-    const [dividendCalendars, setDividendCalendars] = React.useState<Calendar[]>([]);
+    const [dividendCalendars, setDividendCalendars] = React.useState<Stock[]>([]);
     const childRef = React.useRef<ProgressBarRef>(null);
 
     const onEvent = (eventMessage: string) => {
-        const dividendCalendar: Calendar = JSON.parse(eventMessage)
+        const dividendCalendar: Stock = JSON.parse(eventMessage)
         setDividendCalendars(old => [...old, dividendCalendar])
     }
 
@@ -31,21 +30,26 @@ const DividendCalendar: React.FC<DividendCalendarProps> = ({
         DividendGetService.getDividendCalendars(tickers, startOfYear.toISOString(), onEvent);
     }
 
+    const onOtherButtonClick = () => {
+        setDividendCalendars([])
+        const callback = (data: Stock[]) => setDividendCalendars(data)
+        DividendGetService.getSavedStocks(callback);
+    }
+
     const getCalendarTotal = (): number[] => {
         const monthsTotal = Array.from(Array(12), () => 0);
-        dividendCalendars.flatMap(calendar => calendar.dividends)
-            .forEach(dividend => {
-                const date = DateUtils.parseDate(dividend.payDate);
-                const monthIndex = date.getMonth() - 1;
-
-                monthsTotal[monthIndex] = monthsTotal[monthIndex] + dividend.cashAmount;
-            })
+        dividendCalendars.forEach(dividendCalendar => {
+            for (let index = 0; index < 12; index++) {
+                monthsTotal[index] = monthsTotal[index] + dividendCalendar.dividends[index];
+            }
+        })
         return monthsTotal;
     }
 
     return (
         <div>
             <Button onClick={() => onButtonClick()} text="Get information" />
+            <Button onClick={() => onOtherButtonClick()} text="Get repository" />
 
             <ProgressBar ref={childRef} />
             <div>

@@ -1,26 +1,4 @@
-
-// const getDividendInformation = (ticker: string, startDate?: string): Promise<DividendInformation> => {
-//     const url = "http://localhost:8080/dividend/information";
-//     let uri = `${url}?ticker=${ticker}`
-
-//     if (startDate) {
-//         uri += `&startDate=${startDate}`
-//     }
-
-//     const requestData = {
-//         method: 'GET',
-//         headers: {
-//             Accept: 'application/json',
-//             'Content-Type': 'application/json',
-//             'Access-Control-Allow-Origin': '*',
-//         }
-//     }
-
-//     return ApiService.callApi(uri, requestData)
-//         .then(json => json)
-//         .catch(error => console.log(error));
-// };
-
+import { ApiService } from "./ApiService";
 
 const getDividendCalendars = (tickers: string[], startDate: string, onEvent: (eventMessage: string) => void) => {
     const url = "http://localhost:8080/dividend/calendar";
@@ -42,8 +20,25 @@ const getDividendCalendars = (tickers: string[], startDate: string, onEvent: (ev
     }
 }
 
+const getSavedStocks = (callback: (result: any) => void) => {
+    const url = "http://localhost:8080/dividend/list";
+    const requestData = {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        }
+    }
+
+    return ApiService.callApi(url, requestData)
+        .then(json => callback(json))
+        .catch(error => console.log(error));
+}
+
 
 
 export const DividendGetService = {
     getDividendCalendars,
+    getSavedStocks
 }
