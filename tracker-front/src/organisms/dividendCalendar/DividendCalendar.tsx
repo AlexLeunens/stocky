@@ -1,7 +1,8 @@
-import React, { useCallback } from "react";
+import React from "react";
 import Button from "../../atoms/button/Button";
 import ProgressBar, { ProgressBarRef } from "../../atoms/progressBar/ProgressBar";
 import { Stock } from "../../interfaces/Stock";
+import { TickerInfos } from "../../interfaces/TickerInfos";
 import CalendarHeader from "../../molecules/calendarHeader/CalendarHeader";
 import CalendarRow from "../../molecules/calendarRow/CalendarRow";
 import CalendarTotal from "../../molecules/calendarTotal/CalendarTotal";
@@ -9,43 +10,51 @@ import { DividendGetService } from "../../service/DividendGetService";
 import { DividendPostService } from "../../service/DividendPostService";
 
 type DividendCalendarProps = {
-    tickers: string[],
+    tickerInfos: TickerInfos[],
 }
 
 const DividendCalendar: React.FC<DividendCalendarProps> = ({
-    tickers
+    tickerInfos
 }) => {
-    const [dividendCalendars, setDividendCalendars] = React.useState<Stock[]>([]);
+    const [stocks, setStocks] = React.useState<Stock[]>([]);
     const childRef = React.useRef<ProgressBarRef>(null);
 
     const onEvent = (eventMessage: string) => {
-        const dividendCalendar: Stock = JSON.parse(eventMessage)
-        setDividendCalendars(old => [...old, dividendCalendar])
+        const stock: Stock = JSON.parse(eventMessage)
+        // TODO: handle amounts better
+        const newStock = {
+            ...stock,
+            amount: tickerInfos.filter(ti => ti.ticker === stock.ticker)?.[0]?.amount,
+        }
+
+        setStocks(old => [...old, newStock])
     }
 
     const onButtonClick = () => {
-        setDividendCalendars([])
+        setStocks([])
         const startOfYear = new Date(new Date().getFullYear(), 0, 1);
 
-        childRef?.current?.runProgress(tickers.length - 1);
+        childRef?.current?.runProgress(tickerInfos.length - 1);
+        const tickers = tickerInfos.map(tickerInfo => tickerInfo.ticker);
         DividendGetService.getDividendCalendars(tickers, startOfYear.toISOString(), onEvent);
     }
 
-    const onOtherButtonClick = () => {
-        setDividendCalendars([])
-        const callback = (data: Stock[]) => setDividendCalendars(data)
+    const onGetRepoClick = () => {
+        setStocks([])
+        const callback = (data: Stock[]) => setStocks(data)
         DividendGetService.getSavedStocks(callback);
     }
 
     const onPostClick = () => {
-        DividendPostService.saveStocks(dividendCalendars, () => null);
+        DividendPostService.saveStocks(stocks, () => null);
     }
 
     const getCalendarTotal = (): number[] => {
         const monthsTotal = Array.from(Array(12), () => 0);
-        dividendCalendars.forEach(dividendCalendar => {
+        stocks.forEach(stock => {
             for (let index = 0; index < 12; index++) {
-                monthsTotal[index] = monthsTotal[index] + dividendCalendar.dividends[index];
+                const stockTotal = stock.dividends[index] * stock.amount;
+                monthsTotal[index] = monthsTotal[index] + stockTotal;
             }
         })
         return monthsTotal;
@@ -54,13 +63,13 @@ const DividendCalendar: React.FC<DividendCalendarProps> = ({
     return (
         <div>
             <Button onClick={() => onButtonClick()} text="Get information" />
-            <Button onClick={() => onOtherButtonClick()} text="Get repository" />
+            <Button onClick={() => onGetRepoClick()} text="Get repository" />
             <Button onClick={() => onPostClick()} text="POST stocks" />
 
             <ProgressBar ref={childRef} />
             <div>
                 <CalendarHeader />
-                {dividendCalendars.map(dividendCalendar => <CalendarRow dividendCalendar={dividendCalendar} />)}
+                {stocks.map(stock => <CalendarRow stock={stock} />)}
                 <CalendarTotal monthsTotal={getCalendarTotal()} />
             </div>
 

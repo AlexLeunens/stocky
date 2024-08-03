@@ -2,39 +2,47 @@ import React from "react";
 import Button from "../../atoms/button/Button";
 import TextInput from "../../atoms/textInput/TextInput";
 import "./TickerInputStyle.scss";
+import NumberInput from "../../atoms/numberInput/NumberInput";
+import { TickerInfos } from "../../interfaces/TickerInfos";
 
 type TickerInputProps = {
-    tickers: string[],
-    setTickers: React.Dispatch<React.SetStateAction<string[]>>,
+    tickerInfos: TickerInfos[],
+    setTickerInfos: React.Dispatch<React.SetStateAction<TickerInfos[]>>,
 }
 
 const TickerInput: React.FC<TickerInputProps> = ({
-    tickers,
-    setTickers
+    tickerInfos,
+    setTickerInfos
 }) => {
     const [ticker, setTicker] = React.useState<string>("");
+    const [amount, setAmount] = React.useState<number>(0);
 
     const addTicker = (ticker: string) => {
-        setTickers(old => [...old, ticker])
+        const newTickerInfos = {
+            ticker,
+            amount,
+        }
+        setTickerInfos(old => [...old, newTickerInfos])
     }
 
     const removeTicker = (ticker: string) => {
-        const updated = [...tickers].filter(t => t !== ticker)
-        setTickers(updated)
+        const updated = [...tickerInfos].filter(t => t?.ticker !== ticker)
+        setTickerInfos(updated)
     }
 
     return (
         <div>
             <div className="ticker-input">
                 <TextInput onChange={(value) => setTicker(value)} />
+                <NumberInput onChange={(value) => setAmount(value)} />
                 <Button text="add ticker" onClick={() => addTicker(ticker)} />
             </div>
 
             <div className="ticker-list">
-                {tickers.map(ticker => (
+                {tickerInfos.map(tickerInfos => (
                     <div className="ticker-list-item">
                         <div>
-                            {ticker}
+                            {tickerInfos?.ticker}
                         </div>
                         <div className="remove-ticker-button" onClick={() => removeTicker(ticker)}>X</div>
                     </div>

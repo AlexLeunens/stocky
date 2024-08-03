@@ -4,18 +4,34 @@ import CalendarCell from "../../atoms/calendarCell/CalendarCell";
 import { Stock } from "../../interfaces/Stock";
 
 type CalendarRowProps = {
-    dividendCalendar: Stock,
+    stock: Stock,
 }
 
 const CalendarRow: React.FC<CalendarRowProps> = ({
-    dividendCalendar,
+    stock,
 }) => {
+
+    const getDividendAmount = (amount: number, dividend: number) => {
+        return amount * dividend;
+    }
+
+    const getDividendAmountAfterTax = (dividendTotal: number) => {
+        return dividendTotal * 0.55;
+    }
+
+    const getDividendText = (amount: number, dividend: number) => {
+        const total = getDividendAmount(amount, dividend);
+        const afterTaxes = getDividendAmountAfterTax(total);
+
+        return `${total.toFixed(3)} (${afterTaxes?.toFixed(3)})`
+    }
 
     return (
         <div className="calendar-row">
-            <CalendarCell text={dividendCalendar.ticker} key={`${dividendCalendar.ticker}-header`} />
-            {dividendCalendar.dividends.map((value, index) => (
-                <CalendarCell text={value?.toFixed(3)} key={`${dividendCalendar.ticker}-${index}`} />
+            <CalendarCell text={stock.ticker} key={`${stock.ticker}-header`} />
+            <CalendarCell text={stock.amount?.toString()} key={`${stock.ticker}-amount-header`} />
+            {stock.dividends.map((value, index) => (
+                <CalendarCell text={(getDividendText(stock.amount, value))} key={`${stock.ticker}-${index}`} />
             ))}
         </div>
     )

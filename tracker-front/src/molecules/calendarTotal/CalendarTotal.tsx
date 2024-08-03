@@ -12,6 +12,7 @@ const CalendarTotal: React.FC<CalendarTotalProps> = ({
     return (
         <div className="calendar-total">
             <CalendarCell text={"Total :"} />
+            <CalendarCell text={"#"} />
             {monthsTotal.map((value, index) => (
                 <CalendarCell text={value?.toFixed(3)} key={`total-${index}`} />
             ))}

@@ -1,19 +1,20 @@
 import React from "react";
 import DividendCalendar from "../organisms/dividendCalendar/DividendCalendar";
 import TickerInput from "../molecules/tickerInput/TickerInput";
+import { TickerInfos } from "../interfaces/TickerInfos";
 
 type HomePageProps = {
 
 }
 
 const HomePage: React.FC<HomePageProps> = () => {
-    const [tickers, setTickers] = React.useState<string[]>([]);
+    const [tickerInfos, setTickerInfos] = React.useState<TickerInfos[]>([]);
 
     return (
         <div>
-            <TickerInput tickers={tickers} setTickers={setTickers} />
+            <TickerInput tickerInfos={tickerInfos} setTickerInfos={setTickerInfos} />
 
-            <DividendCalendar tickers={tickers} />
+            <DividendCalendar tickerInfos={tickerInfos} />
         </div>
     )
 }
