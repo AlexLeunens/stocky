@@ -20,7 +20,7 @@ const getDividendCalendars = (tickers: string[], startDate: string, onEvent: (ev
     }
 }
 
-const getSavedStocks = (callback: (result: any) => void) => {
+const getSavedStocks = async (callback: (result: any) => void) => {
     const url = "http://localhost:8080/dividend/list";
     const requestData = {
         method: 'GET',
@@ -31,12 +31,13 @@ const getSavedStocks = (callback: (result: any) => void) => {
         }
     }
 
-    return ApiService.callApi(url, requestData)
-        .then(json => callback(json))
-        .catch(error => console.log(error));
+    try {
+        const json = await ApiService.callApi(url, requestData);
+        return callback(json);
+    } catch (error) {
+        return console.log(error);
+    }
 }
-
-
 
 export const DividendGetService = {
     getDividendCalendars,

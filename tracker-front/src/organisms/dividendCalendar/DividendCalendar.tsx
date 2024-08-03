@@ -6,6 +6,7 @@ import CalendarHeader from "../../molecules/calendarHeader/CalendarHeader";
 import CalendarRow from "../../molecules/calendarRow/CalendarRow";
 import CalendarTotal from "../../molecules/calendarTotal/CalendarTotal";
 import { DividendGetService } from "../../service/DividendGetService";
+import { DividendPostService } from "../../service/DividendPostService";
 
 type DividendCalendarProps = {
     tickers: string[],
@@ -36,6 +37,10 @@ const DividendCalendar: React.FC<DividendCalendarProps> = ({
         DividendGetService.getSavedStocks(callback);
     }
 
+    const onPostClick = () => {
+        DividendPostService.saveStocks(dividendCalendars, () => null);
+    }
+
     const getCalendarTotal = (): number[] => {
         const monthsTotal = Array.from(Array(12), () => 0);
         dividendCalendars.forEach(dividendCalendar => {
@@ -50,6 +55,7 @@ const DividendCalendar: React.FC<DividendCalendarProps> = ({
         <div>
             <Button onClick={() => onButtonClick()} text="Get information" />
             <Button onClick={() => onOtherButtonClick()} text="Get repository" />
+            <Button onClick={() => onPostClick()} text="POST stocks" />
 
             <ProgressBar ref={childRef} />
             <div>
