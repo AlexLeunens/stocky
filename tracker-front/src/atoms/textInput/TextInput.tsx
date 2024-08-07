@@ -1,10 +1,12 @@
 import React, { ChangeEvent } from "react";
 
 type TextInputProps = {
+    value: string,
     onChange: (value: string) => void,
 }
 
 const TextInput: React.FC<TextInputProps> = ({
+    value,
     onChange,
 }) => {
 
@@ -15,7 +17,7 @@ const TextInput: React.FC<TextInputProps> = ({
 
     return (
         <div>
-            <input type="text" onChange={(e) => handleChange(e)} />
+            <input type="text" value={value} onChange={(e) => handleChange(e)} />
         </div>
     )
 }

@@ -15,7 +15,7 @@ const TickerInput: React.FC<TickerInputProps> = ({
     setTickerInfos
 }) => {
     const [ticker, setTicker] = React.useState<string>("");
-    const [amount, setAmount] = React.useState<number>(0);
+    const [amount, setAmount] = React.useState<number>(1);
 
     const addTicker = (ticker: string) => {
         const newTickerInfos = {
@@ -23,6 +23,8 @@ const TickerInput: React.FC<TickerInputProps> = ({
             amount,
         }
         setTickerInfos(old => [...old, newTickerInfos])
+        setTicker("")
+        setAmount(1)
     }
 
     const removeTicker = (ticker: string) => {
@@ -30,21 +32,25 @@ const TickerInput: React.FC<TickerInputProps> = ({
         setTickerInfos(updated)
     }
 
+    const getTickerText = (tickerInfos: TickerInfos) => {
+        return `${tickerInfos?.ticker} (${tickerInfos.amount})`
+    }
+
     return (
         <div>
             <div className="ticker-input">
-                <TextInput onChange={(value) => setTicker(value)} />
-                <NumberInput onChange={(value) => setAmount(value)} />
+                <TextInput value={ticker} onChange={(value) => setTicker(value)} />
+                <NumberInput value={amount} onChange={(value) => setAmount(value)} />
                 <Button text="add ticker" onClick={() => addTicker(ticker)} />
             </div>
 
             <div className="ticker-list">
                 {tickerInfos.map(tickerInfos => (
-                    <div className="ticker-list-item">
+                    <div key={`${tickerInfos.ticker}-selector`} className="ticker-list-item">
                         <div>
-                            {tickerInfos?.ticker}
+                            {getTickerText(tickerInfos)}
                         </div>
-                        <div className="remove-ticker-button" onClick={() => removeTicker(ticker)}>X</div>
+                        <div className="remove-ticker-button" onClick={() => removeTicker(tickerInfos?.ticker)}>X</div>
                     </div>
                 ))}
             </div>

@@ -49,17 +49,6 @@ const DividendCalendar: React.FC<DividendCalendarProps> = ({
         DividendPostService.saveStocks(stocks, () => null);
     }
 
-    const getCalendarTotal = (): number[] => {
-        const monthsTotal = Array.from(Array(12), () => 0);
-        stocks.forEach(stock => {
-            for (let index = 0; index < 12; index++) {
-                const stockTotal = stock.dividends[index] * stock.amount;
-                monthsTotal[index] = monthsTotal[index] + stockTotal;
-            }
-        })
-        return monthsTotal;
-    }
-
     return (
         <div>
             <Button onClick={() => onButtonClick()} text="Get information" />
@@ -70,7 +59,7 @@ const DividendCalendar: React.FC<DividendCalendarProps> = ({
             <div>
                 <CalendarHeader />
                 {stocks.map(stock => <CalendarRow stock={stock} />)}
-                <CalendarTotal monthsTotal={getCalendarTotal()} />
+                <CalendarTotal stocks={stocks} />
             </div>
 
         </div>

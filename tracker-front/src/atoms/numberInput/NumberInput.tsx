@@ -1,10 +1,12 @@
 import React, { ChangeEvent } from "react";
 
 type NumberInputProps = {
+    value: number,
     onChange: (value: number) => void,
 }
 
 const NumberInput: React.FC<NumberInputProps> = ({
+    value,
     onChange,
 }) => {
 
@@ -15,7 +17,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
 
     return (
         <div>
-            <input type="number" onChange={(e) => handleChange(e)} />
+            <input type="number" value={value} onChange={(e) => handleChange(e)} />
         </div>
     )
 }
