@@ -22,7 +22,6 @@ const CalendarEditableCell: React.FC<CalendarEditableCellProps> = ({
     return (
         <div className="calendar-cell">
             <input value={text} onChange={(e) => changeAmount(+e.target.value)} />
-            {text}
         </div>
     )
 }

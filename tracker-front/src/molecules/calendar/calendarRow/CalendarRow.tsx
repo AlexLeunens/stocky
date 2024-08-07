@@ -1,8 +1,8 @@
 import React from "react";
 import "./CalendarRowStyle.scss";
-import CalendarCell from "../../atoms/calendarCell/CalendarCell";
-import { Stock } from "../../interfaces/Stock";
-import CalendarEditableCell from "../../atoms/calendarEditableCell/CalendarEditableCell";
+import CalendarCell from "../../../atoms/calendarCell/CalendarCell";
+import { Stock } from "../../../interfaces/Stock";
+import CalendarEditableCell from "../../../atoms/calendarEditableCell/CalendarEditableCell";
 
 type CalendarRowProps = {
     stock: Stock,

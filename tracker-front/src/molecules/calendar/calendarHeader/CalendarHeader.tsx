@@ -1,5 +1,5 @@
 import React from "react";
-import CalendarCell from "../../atoms/calendarCell/CalendarCell";
+import CalendarCell from "../../../atoms/calendarCell/CalendarCell";
 import "./CalendarHeaderStyle.scss";
 
 type CalendarHeaderProps = {

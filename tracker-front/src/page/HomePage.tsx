@@ -12,9 +12,8 @@ const HomePage: React.FC<HomePageProps> = () => {
 
     return (
         <div>
-            <TickerInput tickerInfos={tickerInfos} setTickerInfos={setTickerInfos} />
-
             <DividendCalendar tickerInfos={tickerInfos} />
+            <TickerInput tickerInfos={tickerInfos} setTickerInfos={setTickerInfos} />
         </div>
     )
 }
