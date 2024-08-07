@@ -8,6 +8,7 @@ import CalendarRow from "../../molecules/calendarRow/CalendarRow";
 import CalendarTotal from "../../molecules/calendarTotal/CalendarTotal";
 import { DividendGetService } from "../../service/DividendGetService";
 import { DividendPostService } from "../../service/DividendPostService";
+import { CalendarContext } from "../../context/CalendarContext";
 
 type DividendCalendarProps = {
     tickerInfos: TickerInfos[],
@@ -16,6 +17,7 @@ type DividendCalendarProps = {
 const DividendCalendar: React.FC<DividendCalendarProps> = ({
     tickerInfos
 }) => {
+
     const [stocks, setStocks] = React.useState<Stock[]>([]);
     const childRef = React.useRef<ProgressBarRef>(null);
 
@@ -49,20 +51,28 @@ const DividendCalendar: React.FC<DividendCalendarProps> = ({
         DividendPostService.saveStocks(stocks, () => null);
     }
 
+
+      const context = {
+        stocks,
+        setStocks,
+      }
+
     return (
-        <div>
-            <Button onClick={() => onButtonClick()} text="Get information" />
-            <Button onClick={() => onGetRepoClick()} text="Get repository" />
-            <Button onClick={() => onPostClick()} text="POST stocks" />
-
-            <ProgressBar ref={childRef} />
+        <CalendarContext.Provider value={context}>
             <div>
-                <CalendarHeader />
-                {stocks.map(stock => <CalendarRow stock={stock} />)}
-                <CalendarTotal stocks={stocks} />
-            </div>
+                <Button onClick={() => onButtonClick()} text="Get information" />
+                <Button onClick={() => onGetRepoClick()} text="Get repository" />
+                <Button onClick={() => onPostClick()} text="POST stocks" />
 
-        </div>
+                <ProgressBar ref={childRef} />
+                <div>
+                    <CalendarHeader />
+                    {stocks.map(stock => <CalendarRow stock={stock} />)}
+                    <CalendarTotal stocks={stocks} />
+                </div>
+
+            </div>
+        </CalendarContext.Provider>
     )
 }
 
