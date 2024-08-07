@@ -1,16 +1,16 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import "./CalendarCellStyle.scss"
 
 type CalendarCellProps = {
-    text: string,
+    children: ReactNode,
 }
 
 const CalendarCell: React.FC<CalendarCellProps> = ({
-    text
+    children,
 }) => {
     return (
         <div className="calendar-cell">
-            {text}
+            {children}
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import CalendarCell from "../../../atoms/calendarCell/CalendarCell";
+import CalendarTextCell from "../calendarTextCell/CalendarTextCell";
 import "./CalendarHeaderStyle.scss";
 
 type CalendarHeaderProps = {
@@ -19,10 +19,13 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = () => {
 
     return (
         <div className="calendar-header">
-            <CalendarCell text={""} />
-            <CalendarCell text={"#"} />
+            <CalendarTextCell text={""} />
+            <CalendarTextCell text={"#"} />
             {getMonths().map((value, index) => (
-                <CalendarCell text={value} key={`header-${index}`} />
+                <CalendarTextCell
+                    key={`header-${index}`}
+                    text={value}
+                />
             ))}
         </div>
     )

@@ -1,6 +1,7 @@
 import React from "react";
-import CalendarCell from "../../../atoms/calendarCell/CalendarCell";
+import CalendarTextCell from "../calendarTextCell/CalendarTextCell";
 import "./CalendarTotalStyle.scss";
+import CalendarDividendCell from "../calendarDividendCell/CalendarDividendCell";
 
 type CalendarTotalProps = {
     monthlyDividends: number[],
@@ -9,19 +10,12 @@ type CalendarTotalProps = {
 const CalendarTotal: React.FC<CalendarTotalProps> = ({
     monthlyDividends
 }) => {
-    const getStockTotalText = () => {
-        return monthlyDividends.map(total => {
-            const afterTaxes = total * 0.55;
-            return `${total.toFixed(3)} (${afterTaxes?.toFixed(3)})`;
-        })
-    }
-
     return (
         <div className="calendar-total">
-            <CalendarCell text={"Total :"} />
-            <CalendarCell text={"#"} />
-            {getStockTotalText().map((value, index) => (
-                <CalendarCell text={value} key={`total-${index}`} />
+            <CalendarTextCell text={"Total :"} />
+            <CalendarTextCell text={""} />
+            {monthlyDividends.map((value, index) => (
+                <CalendarDividendCell amount={value} amountAfterTax={value * 0.55} key={`total-${index}`} />
             ))}
         </div>
     )

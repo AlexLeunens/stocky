@@ -1,8 +1,9 @@
 import React from "react";
-import "./CalendarRowStyle.scss";
-import CalendarCell from "../../../atoms/calendarCell/CalendarCell";
 import { Stock } from "../../../interfaces/Stock";
-import CalendarEditableCell from "../../../atoms/calendarEditableCell/CalendarEditableCell";
+import CalendarDividendCell from "../calendarDividendCell/CalendarDividendCell";
+import CalendarEditableCell from "../calendarEditableCell/CalendarEditableCell";
+import CalendarTextCell from "../calendarTextCell/CalendarTextCell";
+import "./CalendarRowStyle.scss";
 
 type CalendarRowProps = {
     stock: Stock,
@@ -11,28 +12,25 @@ type CalendarRowProps = {
 const CalendarRow: React.FC<CalendarRowProps> = ({
     stock,
 }) => {
-
     const getDividendAmount = (amount: number, dividend: number) => {
         return amount * dividend;
     }
 
-    const getDividendAmountAfterTax = (dividendTotal: number) => {
-        return dividendTotal * 0.55;
-    }
-
-    const getDividendText = (amount: number, dividend: number) => {
-        const total = getDividendAmount(amount, dividend);
-        const afterTaxes = getDividendAmountAfterTax(total);
-
-        return `${total.toFixed(3)} (${afterTaxes?.toFixed(3)})`
+    const getDividendAmountAfterTax = (amount: number, dividend: number) => {
+        const total = getDividendAmount(amount, dividend)
+        return total * 0.55;
     }
 
     return (
         <div className="calendar-row">
-            <CalendarCell text={stock.ticker} key={`${stock.ticker}-header`} />
+            <CalendarTextCell text={stock.ticker} key={`${stock.ticker}-header`} />
             <CalendarEditableCell stock={stock} text={stock.amount?.toString()} key={`${stock.ticker}-amount-header`} />
             {stock.dividends.map((value, index) => (
-                <CalendarCell text={(getDividendText(stock.amount, value))} key={`${stock.ticker}-${index}`} />
+                <CalendarDividendCell
+                    key={`${stock.ticker}-${index}`}
+                    amount={getDividendAmount(stock.amount, value)}
+                    amountAfterTax={getDividendAmountAfterTax(stock.amount, value)}
+                />
             ))}
         </div>
     )

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import "./CalendarEditableCell.scss";
-import { CalendarContext } from "../../context/CalendarContext";
-import { Stock } from "../../interfaces/Stock";
+import { CalendarContext } from "../../../context/CalendarContext";
+import { Stock } from "../../../interfaces/Stock";
+import CalendarCell from "../../../atoms/calendar/calendarCell/CalendarCell";
 
 type CalendarEditableCellProps = {
     stock: Stock,
@@ -20,9 +20,9 @@ const CalendarEditableCell: React.FC<CalendarEditableCellProps> = ({
     }
 
     return (
-        <div className="calendar-cell">
+        <CalendarCell>
             <input value={text} onChange={(e) => changeAmount(+e.target.value)} />
-        </div>
+        </CalendarCell>
     )
 }
 

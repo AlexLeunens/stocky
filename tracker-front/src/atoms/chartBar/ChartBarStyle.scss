@@ -1,13 +1,11 @@
+@import "../../variables";
+
 .chart-bar {
     min-height: 200px;
     width: 50px;
-    
-    .chart-bar-empty {
-        // background-color: lightgray;
-    }
-    
+
     .chart-bar-full {
         border-radius: 8px;
-        background-color: orangered;
+        background-color: $red;
     }
 }
